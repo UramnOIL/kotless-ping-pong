@@ -10,7 +10,7 @@ kotless: [v0.2.0](https://github.com/JetBrains/kotless/releases/tag/0.2.0)
 
 ### [/](https://pvorwg8jr7.execute-api.ap-northeast-1.amazonaws.com/1)
 説明文を返します。
-### [/ping](https://pvorwg8jr7.execute-api.ap-northeast-1.amazonaws.com/1)
+### [/ping](https://pvorwg8jr7.execute-api.ap-northeast-1.amazonaws.com/1/ping)
 `pong!`を返します。
 
 ## コード
