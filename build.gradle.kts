@@ -1,5 +1,8 @@
+import io.kotless.plugin.gradle.dsl.kotless
+
 plugins {
-    kotlin("multiplatform") version "1.5.31"
+    kotlin("jvm") version "1.5.31"
+    id("io.kotless") version "0.2.0"
 }
 
 group = "com.uramnoil"
@@ -7,24 +10,42 @@ version = "1.0"
 
 repositories {
     mavenCentral()
+    maven(url = uri("https://packages.jetbrains.team/maven/p/ktls/maven"))
 }
 
-kotlin {
-    /* Targets configuration omitted. 
-    *  To find out how to configure the targets, please follow the link:
-    *  https://kotlinlang.org/docs/reference/building-mpp-with-gradle.html#setting-up-targets */
+dependencies {
+    implementation(kotlin("stdlib-jdk8"))
+    implementation("io.kotless", "ktor-lang", "0.2.0")
+    implementation("io.kotless", "ktor-lang-aws", "0.2.0")
+}
 
-    sourceSets {
-        val commonMain by getting {
-            dependencies {
-                implementation(kotlin("stdlib-common"))
+tasks {
+    compileKotlin {
+        kotlinOptions.jvmTarget = "1.8"
+    }
+    compileTestKotlin {
+        kotlinOptions.jvmTarget = "1.8"
+    }
+}
+
+kotless {
+    config {
+
+        aws {
+            storage {
+                bucket = "kotless-ping-pong"
+                prefix = "dev"
             }
+
+            profile = "kotless-ping-pong"
+            region = "ap-northeast-1"
         }
-        val commonTest by getting {
-            dependencies {
-                implementation(kotlin("test-common"))
-                implementation(kotlin("test-annotations-common"))
-            }
+    }
+
+    webapp {
+        lambda {
+            memoryMb = 1024
+            timeoutSec = 120
         }
     }
 }
