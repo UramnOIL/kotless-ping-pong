@@ -48,4 +48,10 @@ kotless {
             timeoutSec = 120
         }
     }
+
+    extensions {
+        terraform {
+            allowDestroy = true
+        }
+    }
 }
